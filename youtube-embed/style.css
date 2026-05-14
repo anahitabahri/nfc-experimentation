@@ -1,0 +1,71 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #0a0a0a;
+  color: #ffe5e0;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  overflow: hidden;
+}
+
+#player-wrap {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#player, #player iframe {
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+}
+
+#switch-btn {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 214, 179, 0.92);
+  color: #b94459;
+  border: none;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 24px;
+  cursor: pointer;
+  z-index: 10;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+}
+
+#switch-btn:hover { background: #ffd6b3; }
+#switch-btn:active { transform: translateX(-50%) scale(0.96); }
+
+#hint {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+  z-index: 5;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+
+#hint.visible { opacity: 0.7; }
+
+#hint.flash { animation: flash 0.6s; }
+
+@keyframes flash {
+  0%   { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50%  { opacity: 1;   transform: translateX(-50%) scale(1.15); color: #ffd6b3; }
+  100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+}
