@@ -4,10 +4,14 @@
 const SONGZ = "songs";
 
 const TRACKS = [
-  { file: `${SONGZ}/allWeKnow.m4a`,       title: "All We Know",     artist: "The Chainsmokers" },
-  { file: `${SONGZ}/dontLetMeDown.m4a`,   title: "Don't Let Me Down", artist: "The Chainsmokers" },
-  { file: `${SONGZ}/roses.m4a`,           title: "Roses",           artist: "The Chainsmokers" },
-  { file: `${SONGZ}/theOne.m4a`,          title: "The One",         artist: "The Chainsmokers" },
+  { file: `${SONGZ}/Best Friend.m4a`,                                              title: "Best Friend",        artist: "Pharrell Williams" },
+  { file: `${SONGZ}/Come Close (Edited Album Version).m4a`,                        title: "Come Close",         artist: "Common feat. Mary J. Blige" },
+  { file: `${SONGZ}/Justin Timberlake - Señorita (Album Version).m4a`,             title: "Señorita",           artist: "Justin Timberlake" },
+  { file: `${SONGZ}/OverDoz. - Last Kiss (Audio).m4a`,                             title: "Last Kiss",          artist: "OverDoz." },
+  { file: `${SONGZ}/Pharrell  Feat Snoop Dogg -That Girl.m4a`,                     title: "That Girl",          artist: "Pharrell feat. Snoop Dogg" },
+  { file: `${SONGZ}/Pharrell Williams feat. Gwen Stefani - Can I Have It Like That.m4a`, title: "Can I Have It Like That", artist: "Pharrell Williams feat. Gwen Stefani" },
+  { file: `${SONGZ}/Snoop Dogg - Beautiful (Ft Pharrell).m4a`,                     title: "Beautiful",          artist: "Snoop Dogg feat. Pharrell" },
+  { file: `${SONGZ}/Sweet Life.m4a`,                                               title: "Sweet Life",         artist: "Frank Ocean" },
 ];
 
 // ---------- visual sketch state ----------
