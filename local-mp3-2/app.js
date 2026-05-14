@@ -148,16 +148,22 @@ function setup() {
   camOffsetX = floor((cols - camCols) / 2);
   camOffsetY = floor((rows - camRows) / 2);
 
-  // Front camera on phones (selfie). Falls back to default on desktop.
-  video = createCapture(
-    { video: { facingMode: "user" }, audio: false },
-    () => { video.size(camCols, camRows); }
-  );
-  video.size(camCols, camRows);
-  video.hide();
+  // Camera is deferred to startExperience() so the prompt
+  // doesn't fire on page load (and doesn't fight the motion prompt).
 
   noStroke();
   wireUI();
+}
+
+function initCamera() {
+  if (video) return;
+  // Front camera on phones (selfie). Falls back to default on desktop.
+  video = createCapture(
+    { video: { facingMode: "user" }, audio: false },
+    () => { if (video) video.size(camCols, camRows); }
+  );
+  video.size(camCols, camRows);
+  video.hide();
 }
 
 function initCells() {
@@ -181,43 +187,52 @@ function wireUI() {
   const overlay = document.getElementById("overlay");
 
   motionBtn.addEventListener("click", async () => {
-    const ok = await requestMotionPermission(motionErr);
-    if (!ok) return;
-    screenMotion.classList.remove("active");
-    screenStart.classList.add("active");
+    motionBtn.disabled = true;
+    const state = await requestMotionPermission();
+    motionErr.textContent =
+      state === "granted" ? "motion enabled ✓" :
+      state === "denied"  ? "motion denied — you can still tap to start" :
+      state === "none"    ? "motion enabled ✓" :
+                            "motion unavailable — you can still tap to start";
+    // brief beat so the user sees the confirmation before we swap screens
+    setTimeout(() => {
+      screenMotion.classList.remove("active");
+      screenStart.classList.add("active");
+    }, 450);
   });
 
   startBtn.addEventListener("click", () => {
+    startBtn.disabled = true;
     startExperience();
     overlay.classList.add("hidden");
   });
 }
 
-async function requestMotionPermission(errEl) {
+// Returns "granted" | "denied" | "none" (no permission API) | "error"
+async function requestMotionPermission() {
   if (typeof DeviceMotionEvent !== "undefined" &&
       typeof DeviceMotionEvent.requestPermission === "function") {
     try {
       const res = await DeviceMotionEvent.requestPermission();
       if (res === "granted") {
         window.addEventListener("devicemotion", onMotion);
-        return true;
+        return "granted";
       }
-      errEl.textContent = "motion denied — you can still tap to start";
-      return true; // proceed anyway; shake just won't work
+      return "denied";
     } catch (e) {
-      errEl.textContent = "motion error: " + e.message;
-      return true;
+      return "error";
     }
   } else {
     // No permission API needed (Android / desktop)
     window.addEventListener("devicemotion", onMotion);
-    return true;
+    return "none";
   }
 }
 
 function startExperience() {
   if (hasStarted) return;
   hasStarted = true;
+  initCamera(); // camera prompt now fires here, after motion is settled
   getAudioContext().resume().then(() => {
     const track = activeTrackList[currentTrack];
     const startTime = track.start || 0;
