@@ -144,7 +144,7 @@ function setup() {
   initUgParticles();
 
   camRows = floor(rows * 0.65);
-  camCols = floor(camRows * (4 / 3));
+  camCols = floor(camRows * (3 / 4)); // portrait, phone-friendly
   camOffsetX = floor((cols - camCols) / 2);
   camOffsetY = floor((rows - camRows) / 2);
 
@@ -633,7 +633,7 @@ function windowResized() {
   initCells();
   initUgParticles();
   camRows = floor(rows * 0.65);
-  camCols = floor(camRows * (4 / 3));
+  camCols = floor(camRows * (3 / 4)); // portrait, phone-friendly
   camOffsetX = floor((cols - camCols) / 2);
   camOffsetY = floor((rows - camRows) / 2);
   if (video) video.size(camCols, camRows);
