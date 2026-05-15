@@ -4,8 +4,8 @@
 const SONGZ = "songs";
 
 const TRACKS = [
-  { file: `${SONGZ}/Janet Jackson - Alright (Kaytranada Flip).m4a`,  title: "Alright (Kaytranada Flip)",  artist: "Janet Jackson" },
-  { file: `${SONGZ}/Janet Jackson - If (Kaytranada Remix).m4a`,     title: "If (Kaytranada Remix)",      artist: "Janet Jackson" },
+  { file: `${SONGZ}/Corinne Bailey Rae 01. Like A Star.m4a`, title: "Like A Star", artist: "Corinne Bailey Rae" },
+  { file: `${SONGZ}/Radiohead - Nude [HD].m4a`,              title: "Nude",        artist: "Radiohead" },
 ];
 
 // ---------- visual sketch state ----------
