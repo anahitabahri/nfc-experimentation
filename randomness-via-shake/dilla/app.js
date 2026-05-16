@@ -4,11 +4,17 @@
 const SONGZ = "songs";
 
 const TRACKS = [
-  { file: `${SONGZ}/flowers.m4a`,         title: "Flowers",         artist: "J Dilla" },
-  { file: `${SONGZ}/love-is.m4a`,         title: "Love Is",         artist: "J Dilla" },
-  { file: `${SONGZ}/reminisce.m4a`,       title: "Reminisce",       artist: "J Dilla" },
-  { file: `${SONGZ}/sun-in-my-face.m4a`,  title: "Sun In My Face",  artist: "J Dilla" },
-  { file: `${SONGZ}/sunbeams.m4a`,        title: "Sunbeams",        artist: "J Dilla" },
+  { file: `${SONGZ}/flowers.m4a`,                                       title: "Flowers",                       artist: "J Dilla" },
+  { file: `${SONGZ}/love-is.m4a`,                                       title: "Love Is",                       artist: "J Dilla" },
+  { file: `${SONGZ}/reminisce.m4a`,                                     title: "Reminisce",                     artist: "J Dilla" },
+  { file: `${SONGZ}/sun-in-my-face.m4a`,                                title: "Sun In My Face",                artist: "J Dilla" },
+  { file: `${SONGZ}/sunbeams.m4a`,                                      title: "Sunbeams",                      artist: "J Dilla" },
+  { file: `${SONGZ}/J Dilla - Beat 27 (Another Batch).m4a`,             title: "Beat 27 (Another Batch)",       artist: "J Dilla" },
+  { file: `${SONGZ}/J Dilla - Come Closer (Instrumental).m4a`,          title: "Come Closer (Instrumental)",    artist: "J Dilla" },
+  { file: `${SONGZ}/J Dilla - Much More (Instrumental).m4a`,            title: "Much More (Instrumental)",      artist: "J Dilla" },
+  { file: `${SONGZ}/J Dilla - The Light Remix (Instrumental).m4a`,      title: "The Light Remix (Instrumental)",artist: "J Dilla" },
+  { file: `${SONGZ}/J Dilla - Thelonious (14 minute version).m4a`,      title: "Thelonious (14 min)",           artist: "J Dilla" },
+  { file: `${SONGZ}/J Dilla - Track 14 (Dimensions Of Dilla).m4a`,      title: "Track 14 (Dimensions Of Dilla)",artist: "J Dilla" },
 ];
 
 // ---------- visual sketch state ----------
