@@ -1,17 +1,11 @@
 // ====== shamrock — sound wall + shake-to-shuffle ======
-// Songs are loaded from ./songs.
+// Tracks come from ./songs.json (regenerate with ./generate-manifest.sh).
 
 const SONGZ = "songs";
-
-const TRACKS = [
-  { file: `${SONGZ}/allWeKnow.m4a`,       title: "All We Know",     artist: "The Chainsmokers" },
-  { file: `${SONGZ}/dontLetMeDown.m4a`,   title: "Don't Let Me Down", artist: "The Chainsmokers" },
-  { file: `${SONGZ}/roses.m4a`,           title: "Roses",           artist: "The Chainsmokers" },
-  { file: `${SONGZ}/theOne.m4a`,          title: "The One",         artist: "The Chainsmokers" },
-];
+let TRACKS = [];
 
 // ---------- visual sketch state ----------
-let cellSize = 10;
+let cellSize = 14;
 let cols, rows;
 let fft, ampAnalyzer;
 let song;
@@ -60,6 +54,9 @@ let lastShakeAt = 0;
 const SHAKE_THRESHOLD = 18;
 const SHAKE_COOLDOWN_MS = 1200;
 
+// ---------- screen wake lock ----------
+let wakeLock = null;
+
 // ====== p5 lifecycle ======
 
 function buildShuffleQueue() {
@@ -87,10 +84,13 @@ function getNextShuffledTrack() {
 }
 
 function preload() {
-  activeTrackList = TRACKS;
-  buildShuffleQueue();
-  currentTrack = shuffleQueue[0];
-  song = loadSound(TRACKS[currentTrack].file);
+  loadJSON("songs.json", (files) => {
+    TRACKS = files.map((name) => ({ file: `${SONGZ}/${name}` }));
+    activeTrackList = TRACKS;
+    buildShuffleQueue();
+    currentTrack = shuffleQueue[0];
+    song = loadSound(TRACKS[currentTrack].file);
+  });
 }
 
 function setup() {
@@ -188,9 +188,26 @@ async function requestMotionPermission() {
   }
 }
 
+async function requestWakeLock() {
+  if (!("wakeLock" in navigator)) return;
+  try {
+    wakeLock = await navigator.wakeLock.request("screen");
+    wakeLock.addEventListener("release", () => { wakeLock = null; });
+  } catch (e) {
+    // user setting / battery saver can deny — silently ignore
+  }
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (hasStarted && wakeLock === null && document.visibilityState === "visible") {
+    requestWakeLock();
+  }
+});
+
 function startExperience() {
   if (hasStarted) return;
   hasStarted = true;
+  requestWakeLock();
   initCamera(); // camera prompt now fires here, after motion is settled
   getAudioContext().resume().then(() => {
     const track = activeTrackList[currentTrack];
